@@ -9,14 +9,15 @@ import { generateCategoryPageSeo } from "@/lib/seo";
 //import { serialize } from "next-mdx-remote/serialize";
 
 interface CategoryPageProps {
-  params: Promise<{ category: string[] }>;
+  params: Promise<{ slug: string[] }>;
+  searchParams?: Promise<{ [key: string]: string | string[] | undefined }>;
 }
 
 export default async function CategoryPage({ params }: CategoryPageProps) {
-  const { category } = await params;
-  //console.log("params ", params);
+  const { slug } = await params;
+  console.log("slug ", slug);
   //const pageData = await getLatestCategoryMdx(category);
-  const loc = `content/mdx_content/${category}.mdx`;
+  const loc = `content/mdx_content/${slug}.mdx`;
   const { content } = await parseMdxFile(loc);
   //const { title, topPick, content } = await parseMdxFileWithSerialize(loc);
   //const data = await parseMdxFile2(loc);
@@ -75,8 +76,8 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
 
 // Generate dynamic metadata for the category page
 export async function generateMetadata({ params }: CategoryPageProps) {
-  const { category } = params;
-  return generateCategoryPageSeo(category);
+  const { slug } = params;
+  return generateCategoryPageSeo(slug);
 }
 
 // Generate static params for category pages
