@@ -81,9 +81,11 @@ export async function parseMdxFile(filePath: string) {
       source,
       options: {
         parseFrontmatter: true,
-        remarkPlugins: [remarkGfm,remarkRehype,rehypeStringify],
         format: 'mdx',
-      }
+      },
+      mdxOptions: {
+        remarkPlugins: [remarkGfm, remarkRehype, rehypeStringify],
+      },
     })
 
     return {
