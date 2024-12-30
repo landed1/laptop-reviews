@@ -13,13 +13,13 @@ import { generateCategoryPageSeo } from "@/lib/seo";
   searchParams?: Promise<{ [key: string]: string | string[] | undefined }>;
 };*/
 
-type Props = {
+/*type Props = {
   params: {
     slug: Promise<string[]>;
     cat: Promise<string>;
   };
   searchParams: Promise<{ sortOrder: string }>;
-};
+};*/
 
 export default async function CategoryPage({
   params,
