@@ -7,7 +7,7 @@ import type { Metadata, ResolvingMetadata } from "next";
 
 // Define the params type for the dynamic route
 type PostParams = {
-  params: { slug: Promise<string[]> };
+  params: Promise<{ slug: string[] }>;
   searchParams: { [key: string]: string | string[] | undefined };
 };
 
@@ -83,9 +83,9 @@ export async function generateMetadata(
   { params }: PostParams,
   parent: ResolvingMetadata
 ): Promise<Metadata> {
-  const slug = await params.slug;
-  const [, , postSlug] = slug;
-  const postData = await getPostData(slug);
+  const resolvedParams = await params;
+  const [, , postSlug] = resolvedParams.slug;
+  const postData = await getPostData(resolvedParams.slug);
 
   const previousImages = (await parent).openGraph?.images || [];
 
@@ -100,8 +100,8 @@ export async function generateMetadata(
 }
 
 export default async function Page({ params }: PostParams) {
-  const slug = await params.slug;
-  const postData = await getPostData(slug);
+  const resolvedParams = await params;
+  const postData = await getPostData(resolvedParams.slug);
 
   return (
     <main className='container mx-auto px-4 py-8'>
