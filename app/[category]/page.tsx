@@ -8,12 +8,12 @@ import { generateCategoryPageSeo } from "@/lib/seo";
 //import { mdxComponents } from "../../mdx-components"; // Adjust the import path
 //import { serialize } from "next-mdx-remote/serialize";
 
-interface CategoryPageProps {
+type PostParams = {
   params: Promise<{ slug: string[] }>;
   searchParams?: Promise<{ [key: string]: string | string[] | undefined }>;
-}
+};
 
-export default async function CategoryPage({ params }: CategoryPageProps) {
+export default async function CategoryPage({ params }: PostParams) {
   const { slug } = await params;
   console.log("slug ", slug);
   //const pageData = await getLatestCategoryMdx(category);
@@ -75,9 +75,10 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
 }
 
 // Generate dynamic metadata for the category page
-export async function generateMetadata({ params }: CategoryPageProps) {
-  const { slug } = params;
-  return generateCategoryPageSeo(slug);
+export async function generateMetadata({ params }: PostParams) {
+  const resolvedParams = await params;
+  const mySlug = resolvedParams.slug[0];
+  return generateCategoryPageSeo(mySlug);
 }
 
 // Generate static params for category pages
