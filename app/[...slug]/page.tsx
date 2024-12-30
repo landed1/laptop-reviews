@@ -3,11 +3,13 @@ import path from "path";
 import matter from "gray-matter";
 import { compileMDX } from "next-mdx-remote/rsc";
 import CategoryButtons from "@/components/CategoryButtons";
+import { Metadata } from "next";
 
-type Props = {
+type PageProps = {
   params: {
     slug: string[];
   };
+  searchParams: { [key: string]: string | string[] | undefined };
 };
 
 // Generate static parameters for all files in the content folder
@@ -39,7 +41,6 @@ export async function generateStaticParams() {
       });
     }
   });
-  //return params;
 
   return params.map((slug) => ({
     slug,
@@ -63,7 +64,6 @@ async function getPostData(slug: string[]) {
   const fileContent = fs.readFileSync(filePath, "utf-8");
   const { data, content } = matter(fileContent);
 
-  // Define components that will be available in MDX files
   const components = {
     CategoryButtons,
   };
@@ -80,18 +80,20 @@ async function getPostData(slug: string[]) {
   };
 }
 
-export async function generateMetadata({ params }: Props) {
-  const [slug] = await params.slug;
-  const postData = await getPostData(await params.slug);
+export async function generateMetadata({
+  params,
+}: PageProps): Promise<Metadata> {
+  const postData = await getPostData(params.slug);
+  const [, , slug] = params.slug;
 
   return {
     title: postData.meta.title || `Best Laptops: ${slug}`,
     description:
-      postData.meta.description || `Discover the best laptops for ${slug}.`,
+      postData.meta.description || `Discover the best laptops for ${slug}`,
   };
 }
 
-export default async function Page({ params }: Props) {
+export default async function Page({ params }: PageProps) {
   const postData = await getPostData(params.slug);
 
   return (
