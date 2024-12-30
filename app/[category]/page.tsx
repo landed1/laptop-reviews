@@ -65,7 +65,6 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
        
       </div>*/}
       <article className='prose max-w-none'>
-        <MDXRemote source={content} />
         <h2>Raw content below works but TABLE md not parsed</h2>
         <h1>Example Page with MDX Tables</h1>
         <div>{content}</div>
