@@ -1,16 +1,11 @@
 import {promises as fs} from 'fs'
 import path from 'path'
-import { compareDesc, parseISO } from 'date-fns'
+//import { compareDesc, parseISO } from 'date-fns'
 import remarkGfm from 'remark-gfm'
 import remarkRehype from 'remark-rehype'
 import rehypeStringify from 'rehype-stringify'
 import { compileMDX } from 'next-mdx-remote/rsc'
 import { serialize } from "next-mdx-remote/serialize";
-
-interface ParsedMdxFile extends MdxFrontmatter {
-  slug: string;
-  content: string;
-}
 
 
 // Define the structure of our MDX frontmatter
@@ -101,7 +96,7 @@ export async function parseMdxFile(filePath: string) {
 }
 
 // Get MDX files by tag
-export async function getMdxFilesByTag(tag: string):Promise<ParsedMdxFile[]> {
+/*export async function getMdxFilesByTag(tag: string):Promise<MdxFrontmatter[]> {
   const mdxFiles = await getMdxFiles('/content/mdx_content')
   const taggedFiles = []
 
@@ -120,7 +115,7 @@ export async function getMdxFilesByTag(tag: string):Promise<ParsedMdxFile[]> {
   return taggedFiles.sort((a, b) => 
     compareDesc(parseISO(a.date), parseISO(b.date))
   )
-}
+}*/
 
 
 export async function getLinakbleCategories(){
