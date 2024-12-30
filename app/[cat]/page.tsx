@@ -8,16 +8,22 @@ import { generateCategoryPageSeo } from "@/lib/seo";
 //import { mdxComponents } from "../../mdx-components"; // Adjust the import path
 //import { serialize } from "next-mdx-remote/serialize";
 
-type PostParams = {
-  params: Promise<{ slug: string[] }>;
+/*type PostParams = {
+  params: Promise<{ slug: string }>;
   searchParams?: Promise<{ [key: string]: string | string[] | undefined }>;
+};*/
+
+type StaticParams = {
+  cat: string;
+  params: Promise<{ cat: string }>;
 };
 
-export default async function CategoryPage({ params }: PostParams) {
-  const { slug } = await params;
-  console.log("slug ", slug);
+export default async function CategoryPage({ params }: StaticParams) {
+  const { cat } = await params;
+  //console.log("params ", params);
+  console.log("category ", cat);
   //const pageData = await getLatestCategoryMdx(category);
-  const loc = `content/mdx_content/${slug}.mdx`;
+  const loc = `content/mdx_content/${cat}.mdx`;
   const { content } = await parseMdxFile(loc);
   //const { title, topPick, content } = await parseMdxFileWithSerialize(loc);
   //const data = await parseMdxFile2(loc);
@@ -66,8 +72,6 @@ export default async function CategoryPage({ params }: PostParams) {
        
       </div>*/}
       <article className='prose max-w-none'>
-        <h2>Raw content below works but TABLE md not parsed</h2>
-        <h1>Example Page with MDX Tables</h1>
         <div>{content}</div>
       </article>
     </>
@@ -75,19 +79,14 @@ export default async function CategoryPage({ params }: PostParams) {
 }
 
 // Generate dynamic metadata for the category page
-export async function generateMetadata({ params }: PostParams) {
+export async function generateMetadata({ params }: StaticParams) {
   const resolvedParams = await params;
-  const mySlug = resolvedParams.slug[0];
+  const mySlug = resolvedParams.cat;
   return generateCategoryPageSeo(mySlug);
 }
 
 // Generate static params for category pages
 export async function generateStaticParams() {
-  // This would typically come from your MDX content structure
-  return [
-    { category: "laptops-under-400" },
-    { category: "laptops-under-600" },
-    { category: "laptops-under-1000" },
-    { category: "high-end-laptops" },
-  ];
+  const categories = ["laptops", "phones"];
+  return categories.map((category) => ({ cat: category }));
 }
