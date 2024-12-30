@@ -96,7 +96,7 @@ export async function generateMetadata({
 }
 
 // Add type annotation for the return type
-export default async function Page({ params, searchParams }: PageProps) {
+export default async function Page({ params }: PageProps) {
   const postData = await getPostData(params.slug);
 
   return (
