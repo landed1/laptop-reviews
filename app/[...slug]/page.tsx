@@ -3,19 +3,16 @@ import path from "path";
 import matter from "gray-matter";
 import { compileMDX } from "next-mdx-remote/rsc";
 import CategoryButtons from "@/components/CategoryButtons";
-import { Metadata } from "next";
+import type { Metadata, ResolvingMetadata } from "next";
 
-interface PageParams {
-  slug: string[];
-}
-
-interface PageProps {
-  params: PageParams;
+// Define the params type
+type Props = {
+  params: { slug: string[] };
   searchParams: { [key: string]: string | string[] | undefined };
 }
 
 // Generate static parameters for all files in the content folder
-export async function generateStaticParams(): Promise<{ slug: string[] }[]> {
+export async function generateStaticParams() {
   const contentDir = path.join(process.cwd(), "content");
   const params: string[][] = [];
 
@@ -82,32 +79,43 @@ async function getPostData(slug: string[]) {
   };
 }
 
-export async function generateMetadata({
-  params,
-}: PageProps): Promise<Metadata> {
-  const postData = await getPostData(params.slug);
+// Updated generateMetadata to match Next.js 15 signature
+export async function generateMetadata(
+  { params }: Props,
+  parent: ResolvingMetadata
+): Promise<Metadata> {
+  // read route params
   const [, , slug] = params.slug;
+
+  // fetch data
+  const postData = await getPostData(params.slug);
+
+  // optionally access and extend (rather than replace) parent metadata
+  const previousImages = (await parent).openGraph?.images || []
 
   return {
     title: postData.meta.title || `Best Laptops: ${slug}`,
-    description:
-      postData.meta.description || `Discover the best laptops for ${slug}`,
-  };
+    description: postData.meta.description || `Discover the best laptops for ${slug}`,
+    openGraph: {
+      images: [...previousImages],
+    },
+  }
 }
 
-// Add type annotation for the return type
-export default async function Page({ params }: PageProps) {
+export default async function Page({ params }: Props) {
   const postData = await getPostData(params.slug);
 
   return (
-    <main className='container mx-auto px-4 py-8'>
-      <h1 className='text-3xl font-bold mb-4'>{postData.meta.title}</h1>
-      <p className='text-gray-600 mb-8'>
+    <main className="container mx-auto px-4 py-8">
+      <h1 className="text-3xl font-bold mb-4">{postData.meta.title}</h1>
+      <p className="text-gray-600 mb-8">
         {new Date(postData.meta.date).toLocaleDateString()}
       </p>
       <p>{postData.meta.tags}</p>
       <p>{postData.meta.category}</p>
-      <article className='prose lg:prose-xl'>{postData.content}</article>
+      <article className="prose lg:prose-xl">
+        {postData.content}
+      </article>
     </main>
   );
 }
