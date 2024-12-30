@@ -8,7 +8,7 @@ import type { Metadata, ResolvingMetadata } from "next";
 // Define the params type for the dynamic route
 type PostParams = {
   params: Promise<{ slug: string[] }>;
-  searchParams: { [key: string]: string | string[] | undefined };
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 };
 
 // Generate static parameters for all files in the content folder
@@ -80,10 +80,11 @@ async function getPostData(slug: string[]) {
 }
 
 export async function generateMetadata(
-  { params }: PostParams,
+  { params, searchParams }: PostParams,
   parent: ResolvingMetadata
 ): Promise<Metadata> {
   const resolvedParams = await params;
+  const resolvedSearchParams = await searchParams;
   const [, , postSlug] = resolvedParams.slug;
   const postData = await getPostData(resolvedParams.slug);
 
@@ -99,8 +100,9 @@ export async function generateMetadata(
   };
 }
 
-export default async function Page({ params }: PostParams) {
+export default async function Page({ params, searchParams }: PostParams) {
   const resolvedParams = await params;
+  const resolvedSearchParams = await searchParams;
   const postData = await getPostData(resolvedParams.slug);
 
   return (
