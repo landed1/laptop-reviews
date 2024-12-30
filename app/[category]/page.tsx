@@ -9,9 +9,7 @@ import { MDXRemote } from "next-mdx-remote/rsc";
 //import { serialize } from "next-mdx-remote/serialize";
 
 interface CategoryPageProps {
-  params: {
-    category: string;
-  };
+  params: Promise<{ category: string[] }>;
 }
 
 export default async function CategoryPage({ params }: CategoryPageProps) {
@@ -78,7 +76,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
 
 // Generate dynamic metadata for the category page
 export async function generateMetadata({ params }: CategoryPageProps) {
-  const { category } = await params;
+  const { category } = params;
   return generateCategoryPageSeo(category);
 }
 
