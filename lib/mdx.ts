@@ -5,8 +5,13 @@ import remarkGfm from 'remark-gfm'
 import remarkRehype from 'remark-rehype'
 import rehypeStringify from 'rehype-stringify'
 import { compileMDX } from 'next-mdx-remote/rsc'
-//import { MDXRemote } from 'next-mdx-remote'
 import { serialize } from "next-mdx-remote/serialize";
+
+interface ParsedMdxFile extends MdxFrontmatter {
+  slug: string;
+  content: any;
+}
+
 
 // Define the structure of our MDX frontmatter
 export interface MdxFrontmatter {
@@ -96,13 +101,13 @@ export async function parseMdxFile(filePath: string) {
 }
 
 // Get MDX files by tag
-export async function getMdxFilesByTag(tag: string) {
+export async function getMdxFilesByTag(tag: string):Promise<ParsedMdxFile[]> {
   const mdxFiles = await getMdxFiles('/content/mdx_content')
   const taggedFiles = []
 
   for (const file of mdxFiles) {
     const { frontmatter } = await compileMDX<MdxFrontmatter>({
-      source: await fs.promises.readFile(file, 'utf8'),
+      source: await fs.readFile(file, 'utf8'),
       options: { parseFrontmatter: true }
     })
 
@@ -120,7 +125,7 @@ export async function getMdxFilesByTag(tag: string) {
 
 export async function getLinakbleCategories(){
   const mdxFiles = await getMdxFiles('content/mdx_content')
-  console.log("mdxFiles ",mdxFiles)
+  //console.log("mdxFiles ",mdxFiles)
   const frontMatterArray = []
   //we need the front matter from each to send
   for (const file of mdxFiles) {
@@ -142,8 +147,8 @@ export async function getLatestCategoryMdx(category: string) {
   for (const file of mdxFiles) {
     //console.log("file ",file)
     const { frontmatter } = await compileMDX<MdxFrontmatter>({
-      source: await fs.promises.readFile(file, 'utf8'),
-      options: { parseFrontmatter: true,remarkPlugins: [remarkGfm] }
+      source: await fs.readFile(file, 'utf8'),
+      options: { parseFrontmatter: true }
     })
 
     if (frontmatter.category === category) {
