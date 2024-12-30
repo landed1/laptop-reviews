@@ -26,12 +26,12 @@ export default async function CategoryPage({
 }: {
   params: Promise<{ cat: string }>;
 }) {
-  const { cat } = await params;
-  const resolvedParams = cat;
+  //const { cat } = await params;
+  const slug = (await params).cat;
   //console.log("params ", params);
-  console.log("category ", cat);
+  console.log("category ", slug);
   //const pageData = await getLatestCategoryMdx(category);
-  const loc = `content/mdx_content/${resolvedParams}.mdx`;
+  const loc = `content/mdx_content/${slug}.mdx`;
   const { content } = await parseMdxFile(loc);
   //const { title, topPick, content } = await parseMdxFileWithSerialize(loc);
   //const data = await parseMdxFile2(loc);
