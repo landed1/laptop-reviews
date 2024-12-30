@@ -14,7 +14,7 @@ import { generateCategoryPageSeo } from "@/lib/seo";
 };*/
 
 type Props = {
-  params: Promise<{ slug: string[]; cat: string }>;
+  params: { slug: string[]; cat: string };
   searchParams: Promise<{ sortOrder: string }>;
 };
 
