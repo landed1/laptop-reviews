@@ -13,19 +13,11 @@ import { generateCategoryPageSeo } from "@/lib/seo";
   searchParams?: Promise<{ [key: string]: string | string[] | undefined }>;
 };*/
 
-/*type Props = {
-  params: {
-    slug: Promise<string[]>;
-    cat: Promise<string>;
-  };
-  searchParams: Promise<{ sortOrder: string }>;
-};*/
-
-export default async function CategoryPage({
-  params,
-}: {
+type Props = {
   params: Promise<{ cat: string }>;
-}) {
+};
+
+export default async function CategoryPage({ params }: Props) {
   //const { cat } = await params;
   const slug = (await params).cat;
   //console.log("params ", params);
