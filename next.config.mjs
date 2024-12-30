@@ -5,6 +5,7 @@ import createMDX from "@next/mdx";
 const nextConfig = {
   experimental: {
     mdxRs: true,
+    turbo: true,
   },
   // Allow .mdx extensions for files
   pageExtensions: ["js", "jsx", "md", "mdx", "ts", "tsx"],

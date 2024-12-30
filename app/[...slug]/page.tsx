@@ -5,15 +5,17 @@ import { compileMDX } from "next-mdx-remote/rsc";
 import CategoryButtons from "@/components/CategoryButtons";
 import { Metadata } from "next";
 
-type PageProps = {
-  params: {
-    slug: string[];
-  };
+interface PageParams {
+  slug: string[];
+}
+
+interface PageProps {
+  params: PageParams;
   searchParams: { [key: string]: string | string[] | undefined };
-};
+}
 
 // Generate static parameters for all files in the content folder
-export async function generateStaticParams() {
+export async function generateStaticParams(): Promise<{ slug: string[] }[]> {
   const contentDir = path.join(process.cwd(), "content");
   const params: string[][] = [];
 
@@ -93,7 +95,8 @@ export async function generateMetadata({
   };
 }
 
-export default async function Page({ params }: PageProps) {
+// Add type annotation for the return type
+export default async function Page({ params, searchParams }: PageProps) {
   const postData = await getPostData(params.slug);
 
   return (
