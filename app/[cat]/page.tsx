@@ -22,7 +22,7 @@ type Props = {
 };
 
 export default async function CategoryPage({ params }: Props) {
-  const { cat } = params;
+  const { cat } = await params;
   const resolvedParams = cat;
   //console.log("params ", params);
   console.log("category ", cat);
@@ -75,9 +75,7 @@ export default async function CategoryPage({ params }: Props) {
         </section>
        
       </div>*/}
-      <article className='prose max-w-none'>
-        <div dangerouslySetInnerHTML={{ __html: content }} />
-      </article>
+      <article className='prose max-w-none'>{content}</article>
     </>
   );
 }
