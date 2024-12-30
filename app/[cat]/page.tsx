@@ -25,7 +25,7 @@ type Props = {
 };*/
 
 export default async function CategoryPage({ params }: Props) {
-  const { cat } = await params;
+  const { cat } = params;
   const resolvedParams = cat;
   //console.log("params ", params);
   console.log("category ", cat);
@@ -79,7 +79,7 @@ export default async function CategoryPage({ params }: Props) {
        
       </div>*/}
       <article className='prose max-w-none'>
-        <div>{content}</div>
+        <div dangerouslySetInnerHTML={{ __html: content }} />
       </article>
     </>
   );
@@ -99,5 +99,5 @@ export async function generateMetadata({
 // Generate static params for category pages
 export async function generateStaticParams() {
   const categories = ["laptops", "phones"];
-  return categories.map((category) => ({ category }));
+  return categories.map((category) => ({ cat: category }));
 }
