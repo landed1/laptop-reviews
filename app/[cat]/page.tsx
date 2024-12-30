@@ -24,7 +24,7 @@ import { generateCategoryPageSeo } from "@/lib/seo";
 export default async function CategoryPage({
   params,
 }: {
-  params: Promise<{ slug: string; cat: string }>;
+  params: Promise<{ cat: string }>;
 }) {
   const { cat } = await params;
   const resolvedParams = cat;
