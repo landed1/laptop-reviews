@@ -80,8 +80,7 @@ export async function parseMdxFile(filePath: string) {
     const { frontmatter, content } = await compileMDX({
       source,
       options: {
-        parseFrontmatter: true,
-        format: 'mdx',
+        parseFrontmatter: true
       },
       mdxOptions: {
         remarkPlugins: [remarkGfm, remarkRehype, rehypeStringify],
