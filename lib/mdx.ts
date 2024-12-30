@@ -9,7 +9,7 @@ import { serialize } from "next-mdx-remote/serialize";
 
 interface ParsedMdxFile extends MdxFrontmatter {
   slug: string;
-  content: any;
+  content: string;
 }
 
 
