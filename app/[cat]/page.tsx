@@ -21,7 +21,11 @@ type Props = {
   searchParams: Promise<{ sortOrder: string }>;
 };
 
-export default async function CategoryPage({ params }: Props) {
+export default async function CategoryPage({
+  params,
+}: {
+  params: Promise<{ slug: string; cat: string }>;
+}) {
   const { cat } = await params;
   const resolvedParams = cat;
   //console.log("params ", params);
