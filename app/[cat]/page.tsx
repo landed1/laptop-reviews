@@ -14,14 +14,12 @@ import { generateCategoryPageSeo } from "@/lib/seo";
 };*/
 
 type Props = {
-  params: { slug: string[]; cat: string };
+  params: {
+    slug: Promise<string[]>;
+    cat: Promise<string>;
+  };
   searchParams: Promise<{ sortOrder: string }>;
 };
-
-/*type StaticParams = {
-  cat: string;
-  params: Promise<{ cat: string }>;
-};*/
 
 export default async function CategoryPage({ params }: Props) {
   const { cat } = params;
