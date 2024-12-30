@@ -14,7 +14,7 @@ import { generateCategoryPageSeo } from "@/lib/seo";
 };*/
 
 type Props = {
-  params: Promise<{ cat: string }>;
+  params: { cat: string };
 };
 
 export default async function CategoryPage({ params }: Props) {
