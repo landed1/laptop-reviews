@@ -26,10 +26,11 @@ type Props = {
 
 export default async function CategoryPage({ params }: Props) {
   const { cat } = await params;
+  const resolvedParams = cat;
   //console.log("params ", params);
   console.log("category ", cat);
   //const pageData = await getLatestCategoryMdx(category);
-  const loc = `content/mdx_content/${cat}.mdx`;
+  const loc = `content/mdx_content/${resolvedParams}.mdx`;
   const { content } = await parseMdxFile(loc);
   //const { title, topPick, content } = await parseMdxFileWithSerialize(loc);
   //const data = await parseMdxFile2(loc);
