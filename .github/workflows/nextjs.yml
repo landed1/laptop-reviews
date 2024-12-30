@@ -23,14 +23,14 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: Install pnpm
+        run: npm install -g pnpm # Install pnpm globally
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: "20" # Specify your Node.js version
           cache: pnpm # Cache dependencies for pnpm
-
-      - name: Install pnpm
-        run: npm install -g pnpm # Install pnpm globally
 
       - name: Restore dependencies
         run: pnpm install # Use pnpm to install dependencies
