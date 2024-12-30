@@ -1,5 +1,5 @@
-import { getMdxFiles, getLinakbleCategories } from "@/lib/mdx";
-import Image from "next/image";
+import { getLinakbleCategories } from "@/lib/mdx";
+//import Image from "next/image";
 import Link from "next/link";
 
 export default async function Home() {

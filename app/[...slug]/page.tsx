@@ -81,7 +81,7 @@ async function getPostData(slug: string[]) {
 }
 
 export async function generateMetadata({ params }: Props) {
-  const [year, month, slug] = await params.slug;
+  const [slug] = await params.slug;
   const postData = await getPostData(await params.slug);
 
   return {
@@ -92,7 +92,7 @@ export async function generateMetadata({ params }: Props) {
 }
 
 export default async function Page({ params }: Props) {
-  const postData = await getPostData(await params.slug);
+  const postData = await getPostData(params.slug);
 
   return (
     <main className='container mx-auto px-4 py-8'>

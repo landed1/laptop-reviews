@@ -1,12 +1,12 @@
 import React from "react";
-import Image from "next/image";
-import Link from "next/link";
-import { Card, CardHeader, CardBody, Button } from "@nextui-org/react";
-import { parseMdxFile, parseMdxFileWithSerialize } from "@/lib/mdx";
+//import Image from "next/image";
+//import Link from "next/link";
+//import { Card, CardHeader, CardBody, Button } from "@nextui-org/react";
+import { parseMdxFile } from "@/lib/mdx";
 import { generateCategoryPageSeo } from "@/lib/seo";
 import { MDXRemote } from "next-mdx-remote/rsc";
-import { mdxComponents } from "../../mdx-components"; // Adjust the import path
-import { serialize } from "next-mdx-remote/serialize";
+//import { mdxComponents } from "../../mdx-components"; // Adjust the import path
+//import { serialize } from "next-mdx-remote/serialize";
 
 interface CategoryPageProps {
   params: {
@@ -19,7 +19,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
   //console.log("params ", params);
   //const pageData = await getLatestCategoryMdx(category);
   const loc = `content/mdx_content/${category}.mdx`;
-  const { title, topPick, content } = await parseMdxFile(loc);
+  const { content } = await parseMdxFile(loc);
   //const { title, topPick, content } = await parseMdxFileWithSerialize(loc);
   //const data = await parseMdxFile2(loc);
 

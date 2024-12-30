@@ -5,7 +5,7 @@ import remarkGfm from 'remark-gfm'
 import remarkRehype from 'remark-rehype'
 import rehypeStringify from 'rehype-stringify'
 import { compileMDX } from 'next-mdx-remote/rsc'
-import { MDXRemote } from 'next-mdx-remote'
+//import { MDXRemote } from 'next-mdx-remote'
 import { serialize } from "next-mdx-remote/serialize";
 
 // Define the structure of our MDX frontmatter
@@ -33,7 +33,7 @@ export async function parseMdxFileWithSerialize(filePath: string) {
     // Serialize the MDX content for rendering with MDXRemote
     const serializedContent = await serialize(source, {
       mdxOptions: {
-        remarkPlugins: [remarkGfm]
+        remarkPlugins: [remarkGfm,remarkRehype,rehypeStringify],
       },
     });
 
@@ -81,7 +81,7 @@ export async function parseMdxFile(filePath: string) {
       source,
       options: {
         parseFrontmatter: true,
-        remarkPlugins: [remarkGfm],
+        remarkPlugins: [remarkGfm,remarkRehype,rehypeStringify],
         format: 'mdx',
       }
     })
