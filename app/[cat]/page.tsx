@@ -13,12 +13,18 @@ import { generateCategoryPageSeo } from "@/lib/seo";
   searchParams?: Promise<{ [key: string]: string | string[] | undefined }>;
 };*/
 
-type StaticParams = {
-  cat: string;
-  params: Promise<{ cat: string }>;
+type Props = {
+  params: {
+    cat: string;
+  };
 };
 
-export default async function CategoryPage({ params }: StaticParams) {
+/*type StaticParams = {
+  cat: string;
+  params: Promise<{ cat: string }>;
+};*/
+
+export default async function CategoryPage({ params }: Props) {
   const { cat } = await params;
   //console.log("params ", params);
   console.log("category ", cat);
@@ -79,7 +85,11 @@ export default async function CategoryPage({ params }: StaticParams) {
 }
 
 // Generate dynamic metadata for the category page
-export async function generateMetadata({ params }: StaticParams) {
+export async function generateMetadata({
+  params,
+}: {
+  params: { cat: string };
+}) {
   const resolvedParams = await params;
   const mySlug = resolvedParams.cat;
   return generateCategoryPageSeo(mySlug);
@@ -88,5 +98,5 @@ export async function generateMetadata({ params }: StaticParams) {
 // Generate static params for category pages
 export async function generateStaticParams() {
   const categories = ["laptops", "phones"];
-  return categories.map((category) => ({ cat: category }));
+  return categories.map((category) => ({ category }));
 }
