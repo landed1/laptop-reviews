@@ -4,22 +4,11 @@ import React from "react";
 //import { Card, CardHeader, CardBody, Button } from "@nextui-org/react";
 import { parseMdxFile } from "@/lib/mdx";
 import { generateCategoryPageSeo } from "@/lib/seo";
-//import { MDXRemote } from "next-mdx-remote/rsc";
-//import { mdxComponents } from "../../mdx-components"; // Adjust the import path
-//import { serialize } from "next-mdx-remote/serialize";
 
-/*type PostParams = {
-  params: Promise<{ slug: string }>;
-  searchParams?: Promise<{ [key: string]: string | string[] | undefined }>;
-};*/
 type PostParams = {
-  params: Promise<{ cat: string[] }>;
+  params: Promise<{ cat: string }>;
   searchParams?: Promise<{ [key: string]: string | string[] | undefined }>;
 };
-/*
-type Props = {
-  params: { cat: string };
-};*/
 
 export default async function CategoryPage({ params }: PostParams) {
   //const { cat } = await params;
@@ -81,11 +70,7 @@ export default async function CategoryPage({ params }: PostParams) {
 }
 
 // Generate dynamic metadata for the category page
-export async function generateMetadata({
-  params,
-}: {
-  params: { cat: string };
-}) {
+export async function generateMetadata({ params }: Pick<PostParams, "params">) {
   const resolvedParams = await params;
   const mySlug = resolvedParams.cat;
   return generateCategoryPageSeo(mySlug);
