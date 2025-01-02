@@ -19,6 +19,8 @@
 
 # production
 /build
+Specification.md
+prompt.md
 
 # misc
 .DS_Store
