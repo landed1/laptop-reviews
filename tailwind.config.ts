@@ -15,10 +15,18 @@ export default {
         'accent-teal': '#0fa3b1',
         'highlight-red': '#f74554',
         'soft-blue': '#b5e2fa',
-        'light-cream': '#f9f7f3'
+        'light-cream': '#f9f7f3',
+        background: 'hsl(var(--background))',
+        foreground: 'hsl(var(--foreground))',
+        primary: 'hsl(var(--primary))',
+        accent: 'hsl(var(--accent))',
+        muted: 'hsl(var(--muted))',
+        'text-primary': 'hsl(var(--text-primary))',
+        'text-secondary': 'hsl(var(--text-secondary))',
       },
     },
   },
   darkMode: 'class',
   plugins: [nextui()]
 } satisfies Config;
+
