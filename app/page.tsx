@@ -5,7 +5,7 @@ import Link from "next/link";
 import { CheckCircle, ChevronRight } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Laptop Reviews",
+  title: "Laptop Reviews For UK Market - Non Techy Laptop Buying Guide",
   description:
     "We use AI inteligently to read all the latest real human reviews on laptops and provide you with the best laptops in the market.",
   metadataBase: new URL("https://laptop-review.co.uk"),

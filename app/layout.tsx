@@ -5,13 +5,11 @@ import "./globals.css";
 import { Menu, X } from "lucide-react";
 import { useState } from "react";
 import Link from "next/link";
-import { ThemeProvider } from "@/providers/theme-provider";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { Providers } from "./providers";
+import localFont from "next/font/local";
 
-//export const dynamicParams = ;
-
-/*const geistSans = localFont({
+const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
   variable: "--font-geist-sans",
   weight: "100 900",
@@ -20,17 +18,7 @@ const geistMono = localFont({
   src: "./fonts/GeistMonoVF.woff",
   variable: "--font-geist-mono",
   weight: "100 900",
-});*/
-
-/*export const metadata: Metadata = {
-  title: "Laptop Reviews",
-  description:
-    "We use AI inteligently to read all the latest real human reviews on laptops and provide you with the best laptops in the market.",
-  metadataBase: new URL("https://laptop-review.co.uk"),
-  alternates: {
-    canonical: "./",
-  },
-};*/
+});
 
 export default function RootLayout({
   children,
@@ -41,7 +29,9 @@ export default function RootLayout({
 
   return (
     <html lang='en'>
-      <body className='bg-white' suppressHydrationWarning>
+      <body
+        className={`bg-white ${geistSans.variable} ${geistMono.variable} antialiased`}
+        suppressHydrationWarning>
         <Providers>
           <nav className='fixed w-full bg-[#4361ee] text-white z-50'>
             <div className='container mx-auto px-4 py-3 flex justify-between items-center'>
